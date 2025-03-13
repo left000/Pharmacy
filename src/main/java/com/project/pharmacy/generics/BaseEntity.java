@@ -11,7 +11,7 @@ import jakarta.persistence.MappedSuperclass;
 public abstract  class BaseEntity<ID extends Serializable> {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private ID id;
 
 	
