@@ -6,8 +6,6 @@ import com.project.pharmacy.generics.GenericRepository;
 import com.project.pharmacy.model.Product;
 
 @Repository
-public interface ProductRepository extends GenericRepository<Product, Long> {
-	
-	// query nativa
-	
+public interface IProductRepository extends GenericRepository<Product, Long> {
+	// Create Native Query
 }

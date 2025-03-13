@@ -20,7 +20,7 @@ public class GenericServiceImpl<T extends BaseEntity, ID extends Serializable> i
 	public List<T> findAll() {
 		return this.repository.findAll();		
 	}
-
+ 
     @Override
     public T findById(ID id) {
         Optional<T> entity = repository.findById(id);
