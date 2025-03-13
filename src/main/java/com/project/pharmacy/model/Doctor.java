@@ -1,6 +1,9 @@
 package com.project.pharmacy.model;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.project.pharmacy.generics.BaseEntity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,18 +15,15 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Doctor {
+public class Doctor extends BaseEntity<Long>{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	private String name;
 	private String surname;
 	private String telf;
 	private String email;
 
 	@OneToMany(mappedBy = "doctor")
-	private List<Prescription> prescriptions;
+	private List<Prescription> prescriptions = new ArrayList<Prescription>();
 
 	@ManyToMany
 	@JoinTable(
@@ -31,31 +31,21 @@ public class Doctor {
 			joinColumns = @JoinColumn(name = "doctor_id"),
 			inverseJoinColumns = @JoinColumn(name = "specialization_id")
 			)
-	private List<Specialization> specializations;
+	private List<Specialization> specializations = new ArrayList<Specialization>();
 
 	@ManyToMany
 	@JoinTable(
 			name = "clinic_doctor",
 			joinColumns = @JoinColumn(name = "doctor_id"), 
 			inverseJoinColumns = @JoinColumn(name = "clinic_id"))
-	private List<Clinic> clinics;
+	private List<Clinic> clinics = new ArrayList<Clinic>();
 
-	public Doctor(Long id, String name, String surname, String telf, String email, List<Prescription> prescriptions) {
+	public Doctor(String name, String surname, String telf, String email) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.telf = telf;
 		this.email = email;
-		this.prescriptions = prescriptions;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getName() {

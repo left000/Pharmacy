@@ -3,6 +3,8 @@ package com.project.pharmacy.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.project.pharmacy.generics.BaseEntity;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,11 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class SupplierCompany {
+public class SupplierCompany extends BaseEntity<Long> {
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	private String name;
 	private String adress;
 	private String telf;
@@ -27,21 +26,13 @@ public class SupplierCompany {
     	super();
     }
     
-	public SupplierCompany(Long id, String name, String adress, String telf) {
+	public SupplierCompany(String name, String adress, String telf) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.adress = adress;
 		this.telf = telf;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
