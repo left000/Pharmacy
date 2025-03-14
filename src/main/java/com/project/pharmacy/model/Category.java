@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 
@@ -21,16 +22,19 @@ public class Category {
     private String name;
     private String description;
     
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<Product> products = new ArrayList<>();
+	
+	@ManyToMany(mappedBy = "categories")
+	private List<Product> products = new ArrayList<Product>();
+	
+//    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+//    private List<Product> products = new ArrayList<>();
 
     public Category() {
     	super();
     }
-	public Category(Long id, List<Product> products, String description) {
+	public Category(Long id, String description) {
 		super();
 		this.id = id;
-		this.products = products;
 		this.description = description;
 	}
 
@@ -42,13 +46,6 @@ public class Category {
 		this.id = id;
 	}
 
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
 	public String getName() {
 		return name;
 	}

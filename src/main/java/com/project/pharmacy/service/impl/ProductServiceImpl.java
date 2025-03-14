@@ -19,9 +19,4 @@ public class ProductServiceImpl extends GenericServiceImpl<Product, Long> implem
         this.productRepository = productRepository; 
     }
 
-	@Override
-	public List<Product> findByCategory(String category) {
-		return null;
-	}
-	
 }

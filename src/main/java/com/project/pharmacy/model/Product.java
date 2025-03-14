@@ -15,6 +15,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -24,16 +26,21 @@ public class Product extends BaseEntity<Long> {
 
 	    private String name;
 	    private Double price;
-	    private Date expiration_date;
+	    private Date expirationDate;
 	    private String barcode;
 
+	    @ManyToMany
+		@JoinTable(
+				name = "product_category",
+				joinColumns = @JoinColumn(name = "product_id"),
+				inverseJoinColumns = @JoinColumn(name = "category_id")
+				)
+		private List<Category> categories = new ArrayList<Category>();
+
+	    
 	    @ManyToOne
 	    @JoinColumn(name = "manufacturer_id")
 	    private Manufacturer manufacturer; 
-
-	    @ManyToOne
-	    @JoinColumn(name = "category_id")
-	    private Category category;
 
 	    @ManyToOne
 	    @JoinColumn(name = "supply_company_id")
@@ -47,14 +54,12 @@ public class Product extends BaseEntity<Long> {
     }
     
 
-	public Product(String name, Double price, Date expiration_date, String barcode,
-			String dosage, Category category, SupplierCompany company) {
+	public Product(String name, Double price, Date expirationDate, String barcode, SupplierCompany company) {
 		super();
 		this.name = name;
 		this.price = price;
-		this.expiration_date = expiration_date;
+		this.expirationDate = expirationDate;
 		this.barcode = barcode;
-		this.category = category;
 		this.company = company;
 	}
 
@@ -64,14 +69,6 @@ public class Product extends BaseEntity<Long> {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
 	}
 
 	public Double getPrice() {
@@ -92,12 +89,12 @@ public class Product extends BaseEntity<Long> {
 
 
 	public Date getExpiration_date() {
-		return expiration_date;
+		return expirationDate;
 	}
 
 
-	public void setExpiration_date(Date expiration_date) {
-		this.expiration_date = expiration_date;
+	public void setExpiration_date(Date expirationDate) {
+		this.expirationDate = expirationDate;
 	}
 
 
@@ -109,8 +106,6 @@ public class Product extends BaseEntity<Long> {
 	public void setBarcode(String barcode) {
 		this.barcode = barcode;
 	}
-
-
 	
     
 }

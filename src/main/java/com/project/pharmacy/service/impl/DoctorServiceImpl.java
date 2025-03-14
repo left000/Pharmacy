@@ -17,4 +17,6 @@ public class DoctorServiceImpl extends GenericServiceImpl<Doctor, Long> implemen
 		this.doctorRepository = doctorRepository;
 	}
 
+	
+	
 }

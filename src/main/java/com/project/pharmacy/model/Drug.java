@@ -1,5 +1,6 @@
 package com.project.pharmacy.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +22,17 @@ public class Drug extends Product {
     }
     
     
-	public Drug(String activeIngredient, String dosage, Boolean prescriptionRequired) {
-		super();
+	public Drug(String name, Double price, Date expirationDate, String barcode, String dosage, 
+			SupplierCompany company, String activeIngredient, Boolean prescriptionRequired
+			) {
+		super(name, price, expirationDate, barcode, company);
 		this.activeIngredient = activeIngredient;
 		this.dosage = dosage;
 		this.prescriptionRequired = prescriptionRequired;
 	}
+
+
+
 
 	public String getActiveIngredient() {
 		return activeIngredient; 

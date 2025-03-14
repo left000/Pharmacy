@@ -7,6 +7,4 @@ import com.project.pharmacy.model.Product;
 
 public interface IProductService extends IGenericService<Product, Long> {
 
-    List<Product> findByCategory(String category);
-
 }
