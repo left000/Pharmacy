@@ -1,8 +1,8 @@
 package com.project.pharmacy.service.interfaces;
 
+import com.project.pharmacy.dto.DrugDTO;
 import com.project.pharmacy.generics.IGenericService;
-import com.project.pharmacy.model.Drug;
 
-public interface IDrugService extends IGenericService<Drug, Long>{
+public interface IDrugService extends IGenericService<DrugDTO, Long>{
 	// Other Methods 
 }

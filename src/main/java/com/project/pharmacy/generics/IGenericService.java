@@ -3,11 +3,11 @@ package com.project.pharmacy.generics;
 import java.io.Serializable;
 import java.util.List;
 
-public interface IGenericService<T extends BaseEntity, ID extends Serializable> {
-	public List<T> findAll();
-	public T findById(ID id);
-	public T save(T entity);
+public interface IGenericService<D extends BaseEntity, ID extends Serializable> {
+	public List<D> findAll();
+	public D findById(ID id);
+	public D save(D entity);
 	public void delete(ID id);
-	public T update(T entity, ID id);
+	public D update(D entity, ID id);
 }
 

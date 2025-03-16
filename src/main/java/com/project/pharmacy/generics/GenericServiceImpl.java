@@ -3,48 +3,92 @@ package com.project.pharmacy.generics;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
- 
-public class GenericServiceImpl<T extends BaseEntity, ID extends Serializable> implements IGenericService<T, ID>{
+
+public class GenericServiceImpl<T extends BaseEntity, D extends BaseEntity, ID extends Serializable> implements IGenericService<D,ID>{
 
 	@Autowired
 	private GenericRepository<T, ID> repository;
 
-    public GenericServiceImpl(GenericRepository<T, ID> repository) {
-        this.repository = repository;
-    }
+	private Class<D> dto;
+	private Class<T> type;
+	private ModelMapper modelMapper;
 
-	@Override
-	public List<T> findAll() {
-		return this.repository.findAll();		
+	public GenericServiceImpl(GenericRepository<T, ID> repository, ModelMapper modelMapper, Class<D> dto, Class<T> type) {
+		this.repository = repository;
+		this.modelMapper = modelMapper;
+		this.dto = dto;
+		this.type = type;
 	}
- 
-    @Override
-    public T findById(ID id) {
-        Optional<T> entity = repository.findById(id);
-        return entity.orElse(null); 
-    } 
 
 	@Override
-	public T save(T entity) {
-		return this.repository.save(entity);
+	public List<D> findAll() {
+		List<D> list = this.repository.findAll()
+				.stream()
+				.map(t -> modelMapper.map(t, dto))
+				.collect(Collectors.toList());
+		return list;
+	}
+
+	@Override
+	public D findById(ID id) {
+		Optional<D> entity = repository.findById(id)
+				.map(t -> modelMapper.map(t, dto));
+		return entity.orElse(null); 
+	} 
+
+	@Override
+	public D save(D entityDto) {
+		if (entityDto == null) {
+			throw new IllegalArgumentException("Can't be null");
+		}
+
+		try {
+
+			T newUser = modelMapper.map(entityDto, type);
+			T savedUser = repository.save(newUser);
+
+			return modelMapper.map(savedUser, dto);
+
+		} catch (Exception e) {
+			throw new RuntimeException("error in creation" + e.getMessage(), e);
+		}
 	}
 
 	@Override
 	public void delete(ID id) {
-		this.repository.deleteById(id);
+		if (id == null) {
+			throw new IllegalArgumentException("id null");
+		}
+
+		Optional<T> entity = repository.findById(id);
+
+		entity.ifPresentOrElse(
+				t -> this.repository.deleteById(id), 
+				() -> {
+					throw new RuntimeException("Type with id: " + id + "not found");
+				});
 	}
 
 	@Override
-	public T update(T entity, ID id) {
-		Optional<T> entity2 = this.repository.findById(id);
-		if (entity2.isPresent()) {
-			this.repository.save(entity);
-			return entity;
+	public D update(D entityDto, ID id) {
+
+		if (id == null) {
+			throw new IllegalArgumentException("Can't be null");
 		}
-		return null;
+
+		Optional<T> entity = this.repository.findById(id);
+
+		// in questo caso se non trova niente nella Repo, restituisce un Optional vuoto, e non entrerá nel ifPresent 
+		entity.ifPresent(t -> this.repository.save(t));
+
+		// il Map ha la stessa funzione di ifPresent, se non trova niente salta al orElseThrow
+		return entity
+				.map(t -> modelMapper.map(t, dto))
+				.orElseThrow(() -> new RuntimeException("Type with id: " + id + "not found"));
 	}
 
 } 

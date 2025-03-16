@@ -20,17 +20,15 @@ public class Drug extends Product {
     public Drug() {
     	super();
     }
-    
-    
-	public Drug(String name, Double price, Date expirationDate, String barcode, String dosage, 
-			SupplierCompany company, String activeIngredient, Boolean prescriptionRequired
-			) {
-		super(name, price, expirationDate, barcode, company);
+
+
+	public Drug(String name, Double price, Date expirationDate, String barcode, Manufacturer manufacturer,
+			SupplierCompany company, String activeIngredient, String dosage, Boolean prescriptionRequired) {
+		super(name, price, expirationDate, barcode, manufacturer, company);
 		this.activeIngredient = activeIngredient;
 		this.dosage = dosage;
 		this.prescriptionRequired = prescriptionRequired;
 	}
-
 
 
 
