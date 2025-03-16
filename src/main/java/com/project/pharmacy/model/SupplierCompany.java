@@ -3,13 +3,12 @@ package com.project.pharmacy.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.pharmacy.generics.BaseEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -19,7 +18,8 @@ public class SupplierCompany extends BaseEntity<Long> {
 	private String adress;
 	private String telf;
 	
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
 	private List<Product> products = new ArrayList<Product>();
 
     public SupplierCompany() {

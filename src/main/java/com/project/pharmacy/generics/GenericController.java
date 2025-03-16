@@ -45,13 +45,15 @@ public class GenericController<D extends BaseEntity, ID extends Serializable> {
 
 	@PostMapping("/create")
 	public ResponseEntity<D> create(@RequestBody D entity){
+        System.out.println("ProductDTO recibido: " + entity);
+
 		D newEntity = this.genericService.save(entity);
 
 		if (newEntity == null) {
 			return ResponseEntity.notFound().build();
 		}
 
-		return ResponseEntity.ok(newEntity);
+		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id}")

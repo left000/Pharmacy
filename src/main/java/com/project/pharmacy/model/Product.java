@@ -28,16 +28,16 @@ public class Product extends BaseEntity<Long> {
 	private Date expirationDate;
 	private String barcode; 	    
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "manufacturer_id")
 	private Manufacturer manufacturer; 	
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "supply_company_id")
 	private SupplierCompany company; 
 
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-	private List<PharmacyProduct> pharmacyProducts = new ArrayList<PharmacyProduct>(); // Associazione con farmacie
+	private List<PharmacyProduct> pharmacyProducts = new ArrayList<PharmacyProduct>(); 
 
 	@ManyToMany
 	@JoinTable(
@@ -104,9 +104,40 @@ public class Product extends BaseEntity<Long> {
 		return barcode;
 	}
 
-
 	public void setBarcode(String barcode) {
 		this.barcode = barcode;
+	}
+
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
+	public List<PharmacyProduct> getPharmacyProducts() {
+		return pharmacyProducts;
+	}
+
+	public void setPharmacyProducts(List<PharmacyProduct> pharmacyProducts) {
+		this.pharmacyProducts = pharmacyProducts;
+	}
+
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 
 
