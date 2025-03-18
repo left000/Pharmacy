@@ -6,8 +6,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "pharmacy_product")
 public class PharmacyProduct {
 
     @Id
@@ -22,8 +24,12 @@ public class PharmacyProduct {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    private Integer stock; // Quantità del prodotto nella farmacia
+    private Integer stock; 
 
+    public PharmacyProduct() {
+    	super();
+    }
+    
 	public PharmacyProduct(Long id, Pharmacy pharmacy, Product product, Integer stock) {
 		super();
 		this.id = id;
@@ -64,5 +70,10 @@ public class PharmacyProduct {
 		this.stock = stock;
 	}
 
-    
+	@Override
+	public String toString() {
+		return "PharmacyProduct [id=" + id + ", pharmacy=" + pharmacy + ", product=" + product + ", stock=" + stock
+				+ "]";
+	}
+
 }

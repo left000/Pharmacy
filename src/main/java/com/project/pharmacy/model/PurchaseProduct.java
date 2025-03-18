@@ -24,6 +24,10 @@ public class PurchaseProduct {
     
     private Integer quantity;
 
+    public PurchaseProduct() {
+    	super();
+    }
+    
 	public PurchaseProduct(Long id, Purchases purchases, Product product, Integer quantity) {
 		super();
 		this.id = id;

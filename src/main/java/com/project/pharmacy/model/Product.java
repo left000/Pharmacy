@@ -140,5 +140,4 @@ public class Product extends BaseEntity<Long> {
 		this.categories = categories;
 	}
 
-
 }
