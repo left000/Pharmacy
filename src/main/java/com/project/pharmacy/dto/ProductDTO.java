@@ -3,8 +3,7 @@ package com.project.pharmacy.dto;
 import java.io.Serializable;
 import java.sql.Date;
 import com.project.pharmacy.generics.BaseEntity;
-import com.project.pharmacy.model.Manufacturer;
-import com.project.pharmacy.model.SupplierCompany;
+
 
 public class ProductDTO extends BaseEntity<Serializable>{
 

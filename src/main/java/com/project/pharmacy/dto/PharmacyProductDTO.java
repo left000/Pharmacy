@@ -5,9 +5,13 @@ import java.util.List;
 
 import com.project.pharmacy.generics.BaseEntity;
 
+import jakarta.validation.constraints.NotNull;
+
 public class PharmacyProductDTO extends BaseEntity<Serializable> {
 
+	@NotNull
 	private String name;
+	@NotNull
 	private List<ProductDTO> products;
 
 	public PharmacyProductDTO() {

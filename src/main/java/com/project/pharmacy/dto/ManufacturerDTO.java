@@ -5,12 +5,21 @@ import java.sql.Date;
 import com.project.pharmacy.generics.BaseEntity;
 import com.project.pharmacy.model.Manufacturer;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+
 public class ManufacturerDTO extends BaseEntity<Long>{
 	
+	@NotNull
     private String name;
+	@NotNull
     private String address;
+	@NotNull
+	@Email(message = "tiene que tener une email valida") // Solo en los logs / System.out
     private String email;
+	@NotNull
     private String country;
+	@NotNull
     private Date yearFounded;
 
     public ManufacturerDTO() {

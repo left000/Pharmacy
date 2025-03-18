@@ -2,12 +2,18 @@ package com.project.pharmacy.dto;
 
 import java.io.Serializable;
 
+
 import com.project.pharmacy.generics.BaseEntity;
+
+import jakarta.validation.constraints.NotNull;
 
 public class SupplierCompanyDTO extends BaseEntity<Serializable>{
 
+	@NotNull
 	private String name;
+	@NotNull
 	private String adress;
+	@NotNull
 	private String telf;
 	
     public SupplierCompanyDTO() {

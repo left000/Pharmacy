@@ -3,10 +3,16 @@ package com.project.pharmacy.dto;
 
 import com.project.pharmacy.model.Product;
 
+import jakarta.validation.constraints.NotNull;
+
 public class DrugDTO extends Product{
 
+	
+	@NotNull
 	private String activeIngredient;
+	@NotNull
     private String dosage;
+	@NotNull
     private Boolean prescriptionRequired;
 	
     public DrugDTO() {

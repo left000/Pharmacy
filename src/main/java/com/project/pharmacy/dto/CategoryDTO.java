@@ -4,9 +4,13 @@ import java.io.Serializable;
 
 import com.project.pharmacy.generics.BaseEntity;
 
+import jakarta.validation.constraints.NotNull;
+
 public class CategoryDTO extends BaseEntity<Serializable>{
 
+	@NotNull
 	private String name;
+	@NotNull
 	private String description;
 
 	public CategoryDTO() {

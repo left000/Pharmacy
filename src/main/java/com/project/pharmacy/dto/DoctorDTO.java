@@ -4,11 +4,19 @@ import java.io.Serializable;
 
 import com.project.pharmacy.generics.BaseEntity;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+
 public class DoctorDTO extends BaseEntity<Serializable> {
 	
+	@NotNull
 	private String name;
+	@NotNull
 	private String surname;
+	@NotNull
 	private String telf;
+	@NotNull
+	@Email
 	private String email;
 	
 	public DoctorDTO() {

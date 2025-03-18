@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.pharmacy.model.Product;
 
+import jakarta.validation.Valid;
+
 
 public class GenericController<D extends BaseEntity, ID extends Serializable> {
 
@@ -44,7 +46,7 @@ public class GenericController<D extends BaseEntity, ID extends Serializable> {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<D> create(@RequestBody D entity){
+	public ResponseEntity<D> create(@Valid @RequestBody D entity){
         System.out.println("ProductDTO recibido: " + entity);
 
 		D newEntity = this.genericService.save(entity);
@@ -67,7 +69,7 @@ public class GenericController<D extends BaseEntity, ID extends Serializable> {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<D> update(@RequestBody D entity, @PathVariable ID id){
+	public ResponseEntity<D> update(@Valid @RequestBody D entity, @PathVariable ID id){
 		D existingEntity  = this.genericService.findById(id);
 
 		if (existingEntity  == null) {

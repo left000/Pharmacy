@@ -7,14 +7,25 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.pharmacy.generics.BaseEntity;
 import com.project.pharmacy.model.PharmacyProduct;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+
 public class PharmacyDTO extends BaseEntity<Serializable> {
 
+	@NotNull
 	private String name;
+	@NotNull
 	private String address;
+	@NotNull
 	private String telf;
+	@NotNull
+	@Email
 	private String email;
+	@NotNull
 	private String opening_hours;
+	@NotNull
 	private String license_number;
+	@NotNull
 	private String city;
     @JsonIgnore
     private List<PharmacyProduct> pharmacyProducts; 	
