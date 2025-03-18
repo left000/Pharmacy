@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.project.pharmacy.exception.DataNotFoundException;
+
 public class GenericServiceImpl<T extends BaseEntity, D extends BaseEntity, ID extends Serializable> implements IGenericService<D,ID>{
 
 	@Autowired
@@ -30,6 +32,10 @@ public class GenericServiceImpl<T extends BaseEntity, D extends BaseEntity, ID e
 				.stream()
 				.map(t -> modelMapper.map(t, dto))
 				.collect(Collectors.toList());
+		
+		if (list.isEmpty()) {
+		    throw new DataNotFoundException("Lista vuota");
+		}
 		return list;
 	}
 

@@ -32,37 +32,50 @@ public class GlobalExceptionHandler {
 
 	// Gestisce errori generici (404)
 	@ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFound(NoHandlerFoundException ex, HttpServletRequest request) {
-        ErrorResponse errorResponse = new ErrorResponse(
-            HttpStatus.NOT_FOUND.value(),
-            "Endpoint non trovato",
-            request.getRequestURI(),
-            request.getMethod(),
-            LocalDateTime.now(),
-            ex.getMessage()
-        );
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-    }
+	public ResponseEntity<ErrorResponse> handleNotFound(NoHandlerFoundException ex, HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(
+				HttpStatus.NOT_FOUND.value(),
+				"Endpoint non trovato",
+				request.getRequestURI(),
+				request.getMethod(),
+				LocalDateTime.now(),
+				ex.getMessage()
+				);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+	}
 
 	// Gestisce errori di validazione (es. parametri errati)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ErrorResponse> handleValidationErrors(MethodArgumentNotValidException ex, HttpServletRequest request) {
-		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Errore di validazione", 
-				request.getRequestURI(), request.getMethod(), LocalDateTime.now(), ex.getMessage() );
-
+		ErrorResponse errorResponse = new ErrorResponse(
+				HttpStatus.BAD_REQUEST.value(),
+				"Errore di validazione", 
+				request.getRequestURI(), 
+				request.getMethod(), 
+				LocalDateTime.now(),
+				ex.getMessage()
+				);
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
 	}
 
-	// Gestisce errori generici (500)
+	// Gestisce errori generici (500)  
+	// Tutte le sottoclassi di Exception entreranno qua.
+	// Ex: DataNotFoundException | non ho un metodo per gestire questa classe di exception
+	//		quindi la generica lo fara per me, solo che non posso controllare le specifiche del msg.
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorResponse> handleGenericException(Exception ex, HttpServletRequest request) {
 
-		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Errore interno del server", 
-				request.getRequestURI(), request.getMethod(), LocalDateTime.now(), ex.getMessage() );
+		ErrorResponse errorResponse = new ErrorResponse(
+				HttpStatus.INTERNAL_SERVER_ERROR.value(),
+				"Errore interno del server", 
+				request.getRequestURI(),
+				request.getMethod(), 
+				LocalDateTime.now(), 
+				ex.getMessage() 
+				);
 
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
 	}
-
 
 	//  Errore di parsing della richiesta
 	@ExceptionHandler(HttpMessageNotReadableException.class)
@@ -201,4 +214,20 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
 	}
 
+	// Gestisce DataNotFoundException (500)
+	@ExceptionHandler(DataNotFoundException.class)
+	public ResponseEntity<ErrorResponse> dataNotFoundException(DataNotFoundException ex, HttpServletRequest request) {
+
+		ErrorResponse errorResponse = new ErrorResponse(
+				HttpStatus.INTERNAL_SERVER_ERROR.value(),
+				"Errore interno del server", 
+				request.getRequestURI(),
+				request.getMethod(), 
+				LocalDateTime.now(), 
+				ex.getMessage() 
+				);
+
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+	}
+	
 }
