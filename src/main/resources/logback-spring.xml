@@ -3,10 +3,10 @@
 
     <!-- Definisce l'appender per i log su file -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/application.log</file> <!-- Nome del file di log -->
+        <file>logs/pharmacy.log</file> <!-- Nome del file di log -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- Archivia i log giornalmente -->
-            <fileNamePattern>logs/application-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>logs/pharmacy-%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory> <!-- Mantiene gli ultimi 30 giorni di log -->
         </rollingPolicy>
         <encoder>
