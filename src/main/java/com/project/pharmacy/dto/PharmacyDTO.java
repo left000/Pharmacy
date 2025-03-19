@@ -98,4 +98,12 @@ public class PharmacyDTO extends BaseEntity<Serializable> {
 		this.pharmacyProducts = pharmacyProducts;
 	}
 
+	@Override
+	public String toString() {
+		return "PharmacyDTO [name=" + name + ", address=" + address + ", telf=" + telf + ", email=" + email
+				+ ", opening_hours=" + opening_hours + ", license_number=" + license_number + ", city=" + city
+				+ ", pharmacyProducts=" + pharmacyProducts + ", getId()=" + getId() + ", getClass()=" + getClass()
+				+ "]";
+	}
+
 }

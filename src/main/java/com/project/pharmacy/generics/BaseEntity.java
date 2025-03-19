@@ -22,5 +22,10 @@ public abstract  class BaseEntity<ID extends Serializable> {
 	public void setId(ID id) {
 		this.id = id;
 	}
+
+	@Override
+	public String toString() {
+		return "BaseEntity [id=" + id + "]";
+	}
 	
 }
